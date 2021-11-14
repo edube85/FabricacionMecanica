@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+
+<style>
+
+body {
+  font: 90%/1.45em "Arial", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #fff;
+}
+</style>
+
+
+<body>
+
+
+ <header th:replace="layout/layout :: header"></header>
+    <main role="main">     
+      <hr>
+      <div class="container col-sm-6 mx-auto"> 
+
+        <div class="card ">
+          <h4 class="card-header"><strong>Formulario de registro</strong></h4>              
+          <div class="card-body">
+            <form th:action="@{/usuarios/signup}" th:object="${usuario}" method="post">              
+              <div class="row">
+                 <input type="hidden" th:field="*{id}">
+                 <input type="hidden" th:field="*{enabled}"> 
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" th:field="*{username}" id="username" name="username" 
+                    th:placeholder="#{text.registro.username}" required="required" autofocus>
+                  </div>
+                </div>
+                <div class="col-md-6"> 
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" th:field="*{password}" id="password" name="password" 
+                    th:placeholder="#{text.registro.password}" required="required">
+                  </div>
+                </div>
+              </div>                  
+              <hr>
+              <button type="submit" title="Quiero registrarme." class="btn btn-primary"
+              th:text="#{text.registro.boton}" >Registrarse</button>  
+            </form>
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+    </main>
+	<footer th:replace="layout/layout :: footer"></footer>
+
+  </body>
+</html>

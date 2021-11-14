@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" />
+
+<!--  Quitar Spinner type number -->
+<style>
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+</style>
+
+
+
+
+<head th:replace="layout/layout :: head"></head>
+<style>
+
+body {
+  font: 90%/1.45em "Arial", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #fff;
+}
+</style>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-dark text-white">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<div th:object="${taller}" th:remove="tag">
+					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
+						role="alert">
+						<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+					</ul>
+				</div>
+
+				<form th:action="@{/form}" th:object="${taller}" method="post"
+					enctype="multipart/form-data">
+					
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="hidden" th:field="*{id}" class="form-control"
+								th:errorclass="'form-control alert-danger'" readonly/> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="nombre" class="col-sm-2 col-form-label" th:text="#{text.taller.nombre}">Nombre</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{nombre}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="direccion" class="col-sm-2 col-form-label" th:text="#{text.taller.direccion}">Dirección</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{direccion}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="email" class="col-sm-2 col-form-label" th:text="#{text.taller.email}">Email</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{email}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="telefono" class="col-sm-2 col-form-label" th:text="#{text.taller.telefono}">Teléfono</label>
+						<div class="col-sm-6">
+							<input type="number" class="form-control" th:field="*{telefono}"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" ></small>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="contacto" class="col-sm-2 col-form-label" th:text="#{text.taller.contacto}">Contacto</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{contacto}"
+								th:errorclass="'form-control alert-danger'"> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('contacto')}" th:errors="*{contacto}"></small>
+						</div>
+					</div>
+
+
+
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="submit" th:value="${titulo}"
+								class="btn btn-secondary" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
