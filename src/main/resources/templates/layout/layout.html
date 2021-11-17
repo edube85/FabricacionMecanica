@@ -51,7 +51,7 @@ body {
 						class="btn btn-outline-primary" th:href="@{/login}"
 						th:text="#{text.menu.signin}">Sign In</a> <a
 						sec:authorize="hasRole('ROLE_ADMIN')"
-						class="btn btn-outline-primary" th:href="@{/usuarios/signup}">Registrar</a>
+						class="btn btn-outline-primary" th:href="@{/usuarios/signup}" th:text="#{text.menu.registrar}">Registrar</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav navbar-right mx-4">

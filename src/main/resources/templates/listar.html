@@ -110,7 +110,7 @@ div.dtsp-searchPanes {
           <div class="card-body">  
                  
            <a th:href="@{/solicitudes/form}" class="btn btn-primary btn-xs" th:text="#{text.solicitud.crear}">Crear Solicitud</a>
-           <a class="btn btn-danger btn-xs" th:href="@{/eliminarTodo}" onclick="return confirm('¿Desea eliminar TODAS las Solicitudes?')" style="float: right;">Eliminar Todo</a>
+           <a class="btn btn-danger btn-xs" th:href="@{/eliminarTodo}" th:text="#{text.solicitud.eliminarTodo}" onclick="return confirm('¿Desea eliminar TODAS las Solicitudes?')" style="float: right;">Eliminar Todo</a>
 								
 								
 												
@@ -176,7 +176,7 @@ div.dtsp-searchPanes {
                   <a class="btn btn-primary btn-xs" th:href="@{/solicitudes/form/} + ${proyecto.id}" th:text="#{text.taller.editar}"></a>
 				<a class="btn btn-danger btn-xs"
 								th:href="@{/eliminarproy/} + ${proyecto.id}" th:text="#{text.taller.eliminar}"
-								onclick="return confirm('¿Desea eliminar el taller?')" ></a></td>
+								onclick="return confirm('¿Desea eliminar la solicutud?')" ></a></td>
 				 <td th:text="${proyecto.solicitud}" style="display:none;"></td>
 				 
                 </tr>                
