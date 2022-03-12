@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
 
@@ -29,7 +28,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.edusoft.entity.Proyecto;
 import com.edusoft.entity.Taller;
-import com.edusoft.models.dao.IProyectoDao;
 import com.edusoft.models.service.IEstadoService;
 import com.edusoft.models.service.IProyectoService;
 import com.edusoft.models.service.ITallerService;
@@ -40,7 +38,6 @@ import com.edusoft.models.service.IUploadFileService;
 
 @Controller
 @SessionAttributes("proyecto")
-
 public class ProyectoController {
 	
 	@Autowired

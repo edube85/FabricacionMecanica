@@ -34,12 +34,12 @@ public class TallerController {
 	private MessageSource messageSource;
 	
 	
-	@RequestMapping(value = { "/talleres/listTalleres" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "talleres/listTalleres" }, method = RequestMethod.GET)
 	public String listarTalleres( Model model) {
 		
 		model.addAttribute("talleres", tallerService.findAll());
 		
-		return "/talleres/listTalleres";
+		return "talleres/listTalleres";
 		
 	}
 	
