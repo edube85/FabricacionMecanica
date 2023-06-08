@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" />
+<head th:replace="layout/layout :: head"></head>
+
+
+<style>
+
+body {
+  font: 90%/1.45em "Arial", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #fff;
+}
+</style>
+
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-dark text-white">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<div th:object="${proyecto}" th:remove="tag">
+					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
+						role="alert">
+						<li th:each="err : ${#fields.errors('*')}" th:text="${err}"></li>
+					</ul>
+				</div>
+				
+				
+				<form th:action="@{/solicitudes/form}" th:object="${proyecto}" method="post"
+					enctype="multipart/form-data">
+					
+					
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="hidden" th:field="*{id}" class="form-control"
+								th:errorclass="'form-control alert-danger'" readonly/> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="hidden" th:field="*{id}" class="form-control"
+								th:errorclass="'form-control alert-danger'" readonly/> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></small>
+						</div>
+					</div>
+				
+				
+				<div class="form-group row" >
+				<label for="solicitud" class="col-sm-2 col-form-label" th:text="#{text.solicitud.solicitud}">Solicitud</label>
+				<div class="col-sm-6">
+                
+				<select class="form-control" th:field="*{solicitud}" name="solicitud"
+					 th:object="${proyecto}">
+               <option value=" ">Seleccionar Carpeta</option>
+					<option th:each="fileList : ${carpetas}" 
+						th:text="${fileList}" th:value="${fileList}" ></option>
+						
+						
+                </select>
+				</div></div>
+				
+				
+					
+				<div class="form-group row" >
+				<label for="nombreTaller" class="col-sm-2 col-form-label" th:text="#{text.solicitud.taller}">Nombre Taller</label>
+				<div class="col-sm-6">	
+                
+				<select class="form-control" th:field="*{nombreTaller}"
+					id="${taller.nombre}" name="nombreTaller" th:object="${proyecto}">
+               <option value=" ">Seleccionar Taller</option>
+					<option th:each="taller : ${taller}" th:value="${taller.nombre}"
+						th:text="${taller.nombre}" th:selected="${taller.nombre}" id="${taller.nombre}" ></option>
+						
+						
+                </select>
+						
+					</div>
+					</div>
+					
+	
+				
+					<div class="form-group row">
+						<label for="nombre" class="col-sm-2 col-form-label" th:text="#{text.solicitud.proyecto}">Nombre</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{nombre}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+						</div>
+					</div>
+	
+					
+					<div class="form-group row">
+						<label for="descripcion" class="col-sm-2 col-form-label" th:text="#{text.solicitud.descripcion}">Descripción</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{descripcion}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></small>
+						</div>
+					</div>
+
+					
+					<div class="form-group row">
+						<label for="precio" class="col-sm-2 col-form-label" th:text="#{text.solicitud.precio}">Precio</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{precio}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></small>
+						</div>
+					</div>
+					
+
+					
+					<div class="form-group row">
+						<label for="fechaPed" class="col-sm-2 col-form-label" th:text="#{text.solicitud.fechaped}">Fecha Pedido</label>
+						<div class="col-sm-6">
+							<input type="date" th:field="*{fechaPed}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('fechaPed')}" th:errors="*{fechaPed}"></small>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="plazo" class="col-sm-2 col-form-label" th:text="#{text.solicitud.plazo}">Plazo</label>
+						<div class="col-sm-6">
+							<input type="date" th:field="*{plazo}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('plazo')}" th:errors="*{plazo}"></small>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="fechaRec" class="col-sm-2 col-form-label" th:text="#{text.solicitud.fecharec}">Fecha Recibido</label>
+						<div class="col-sm-6">
+							<input type="date" th:field="*{fechaRec}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('fechaRec')}" th:errors="*{fechaRec}" ></small>
+						</div>
+					</div>
+
+					
+				<div class="form-group row">
+						<label for="fileAlb" class="col-sm-2 col-form-label" th:text="#{text.solicitud.albaran}">Albaran</label>
+						<div class="col-sm-6">
+							<input type="file" name="fileAlb" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="fileOf" class="col-sm-2 col-form-label" th:text="#{text.solicitud.oferta}">Oferta</label>
+						<div class="col-sm-6">
+							<input type="file" name="fileOf" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="filePed" class="col-sm-2 col-form-label" th:text="#{text.solicitud.pedido}">Pedido</label>
+						<div class="col-sm-6">
+							<input type="file" name="filePed" class="form-control" />
+						</div>
+					</div>
+
+					
+					<div class="form-group row">
+						<label for="fileSscc" class="col-sm-2 col-form-label" th:text="#{text.solicitud.sscc}">SSCC</label>
+						<div class="col-sm-6">
+							<input type="file" name="fileSscc" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="form-group row" >
+				<label for="estado" class="col-sm-2 col-form-label" >Estado</label>
+				<div class="col-sm-6">	
+                
+				<select class="form-control" th:field="*{estado}"
+					id="${estado.estado}" name="estado" th:object="${proyecto}">
+                    <option value=" Sin especificar">Estado</option>
+					<option th:each="estado : ${estado}" th:value="${estado.estado}"
+						th:text="${estado.estado}" th:selected="${estado}" id="${estado.estado}" ></option>
+						
+						
+                </select>
+						
+					</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="comentarios" class="col-sm-2 col-form-label" th:text="#{text.solicitud.comentarios}">Comentarios</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{comentarios}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('comentarios')}" th:errors="*{comentarios}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="submit" th:value="${titulo}"
+								class="btn btn-secondary" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+	<script type="text/javascript">
+	
+	$(function() {
+	    $( "#datepicker" ).datepicker({dateFormat: 'dd-MM-yyyy'});
+	});
+	
+	</script>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

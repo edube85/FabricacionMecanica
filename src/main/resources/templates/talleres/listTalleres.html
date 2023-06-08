@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8" />
+<head th:replace="layout/layout :: head"></head>
+
+<style>
+
+body {
+  font: 90%/1.45em "Arial", HelveticaNeue, Verdana, Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-color: #fff;
+}
+</style>
+
+
+  <body >
+
+    
+    <header th:replace="layout/layout :: header"></header>
+    
+
+    <main role="main">     
+      <hr>
+      <div class="container"> 
+
+        <div class="card">
+        
+          <h4 class="card-header"th:text="#{text.taller.listar.titulo}"><strong>Listado de Talleres</strong></h4> 
+                       
+          <div class="card-body">  
+                 
+           <a th:href="@{/form}" class="btn btn-primary btn-xs" th:text="#{text.taller.crear}">crear
+						taller</a>
+						
+			 <hr>  			
+            <table class="table table-bordered"  style="table-layout: fixed; width: 100%;">
+              <thead bgcolor="ADADAD">
+                <tr>
+
+                  <th scope="col"th:text="#{text.taller.nombre}">Taller</th>                  
+                  <th scope="col"th:text="#{text.taller.contacto}">Contacto</th>
+                  <th scope="col"th:text="#{text.taller.direccion}">Dirección</th>
+                  <th scope="col"th:text="#{text.taller.telefono}">Teléfono</th>
+                  <th scope="col"th:text="#{text.taller.email}">Email</th>
+                  <th th:text="#{text.taller.editar}">Editar</th>
+                  <th th:text="#{text.taller.eliminar}" >Eliminar</th>
+                 
+                </tr>
+              </thead>
+              
+              <tbody>
+              
+                <tr th:each="taller : ${talleres}">
+                  <td th:text="${taller.nombre}"></td>                  
+                  <td th:text="${taller.contacto}"></td>
+                  <td th:text="${taller.direccion}"></td>
+                  <td th:text="${taller.telefono}"></td>
+                  <td th:text="${taller.email}"></td>
+                  <td ><a class="btn btn-primary btn-xs"
+				th:href="@{/form/} + ${taller.id}" th:text="#{text.taller.editar}"></a></td>
+				<td ><a class="btn btn-danger btn-xs"
+								th:href="@{/eliminar/} + ${taller.id}" th:text="#{text.taller.eliminar}"
+								onclick="return confirm('¿Desea eliminar el taller?')" ></a></td>
+				
+                </tr>                
+                               
+              </tbody>
+            </table>
+           
+          </div>
+        </div>
+      </div> <!-- /container -->
+
+    </main>
+	<footer th:replace="layout/layout :: footer"></footer>
+  </body>
+</html>

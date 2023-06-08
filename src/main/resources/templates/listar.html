@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <link href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"	rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0-beta1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.min.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/searchpanes/2.1.1/css/searchPanes.dataTables.min.css"> 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css"> 
+
+    <meta charset="UTF-8" />
+
+    <head th:replace="layout/layout :: head"></head>
+
+    <body>
+        <header th:replace="layout/layout :: header"></header>
+
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" 
+             th:if="${mensaje != null}" th:text="${mensaje}" class="alert alert-danger">
+        </div>
+
+        <main role="main">  
+
+            <hr>
+
+            <div class="card">
+
+                <h4 class="card-header" align="center"><strong th:text="#{text.solicitud.listado}">Listado de Solicitudes</strong></h4> 
+
+                <div class="card-body">  
+
+                    <a th:href="@{/solicitudes/form}" class="btn btn-primary btn-xs" th:text="#{text.solicitud.crear}">Crear Solicitud</a>
+                    <a class="btn btn-danger btn-xs" th:href="@{/eliminarTodo}" th:text="#{text.solicitud.eliminarTodo}" onclick="return confirm('¿Desea eliminar TODAS las Solicitudes?')" style="float: right;">Eliminar Todo</a>
+
+                    <hr>			 
+
+                    <div  class = "container" id="container"></div>		
+
+                    <table id="todotable" class="hover table table-striped table-bordered dt-responsive nowrap"  style="width: 100%;">
+                        <thead bgcolor="ADADAD">
+                            <tr>
+                                <th scope="col"th:text="#{text.solicitud.solicitud}">Solicitud</th> 
+                                <th scope="col"th:text="#{text.solicitud.nombre}">Taller</th>                  
+                                <th scope="col"th:text="#{text.solicitud.proyecto}">Proyecto</th>
+                                <th scope="col"th:text="#{text.solicitud.descripcion}">Descripción</th>
+                                <th scope="col"th:text="#{text.solicitud.oferta}">Oferta</th>
+                                <th scope="col"th:text="#{text.solicitud.albaran}">Albarán</th>
+                                <th scope="col"th:text="#{text.solicitud.precio}">Precio</th>    
+                                <th scope="col"th:text="#{text.solicitud.pedido}">Pedido</th>
+                                <th scope="col"th:text="#{text.solicitud.sscc}">SSCC</th>
+                                <th scope="col"th:text="#{text.solicitud.fechaped}">FechaPed</th>
+                                <th scope="col"th:text="#{text.solicitud.plazo}">Plazo</th>               
+                                <th scope="col"th:text="#{text.solicitud.fecharec}">FechaRec</th>
+                                <th scope="col"th:text="#{text.solicitud.demora}">Demora</th>
+                                <th scope="col"th:text="#{text.solicitud.estado}">Estado</th>
+                                <th scope="col"th:text="#{text.solicitud.comentarios}">Comentarios</th>
+                                <th scope="col"th:text="#{text.solicitud.opciones}">Opciones</th>
+                                <th style="display:none;"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <tr th:each="proyecto : ${proyecto}">
+                                <td ><a th:href="@{/solicitudesPdf/} + ${proyecto.id}" th:text="${proyecto.solicitud}"></a></td>   
+                                <td th:text="${proyecto.nombreTaller}"></td>                  
+                                <td th:text="${proyecto.nombre}"></td>
+                                <td th:text="${proyecto.descripcion}"></td>
+                                <td ><a th:href="@{/ofertas/} + ${proyecto.id}" th:text="${proyecto.oferta}"></a></td>
+                                <td ><a th:href="@{/albaranes/} + ${proyecto.id}" th:text="${proyecto.albaran}"></a></td>
+                                <td th:text="${proyecto.precio}+€"></td>                  
+                                <td ><a th:href="@{/pedidos/} + ${proyecto.id}" th:text="${proyecto.pedido}"></a></td>
+                                <td ><a th:href="@{/sscc/} + ${proyecto.id}" th:text="${proyecto.sscc}"></a></td>
+                                <td th:text="${proyecto.fechaPed != null ? #temporals.format(proyecto.fechaPed.toLocalDate(), 'dd-MM-yyyy') : ''}"></td>
+                                <td th:text="${proyecto.plazo != null ? #temporals.format(proyecto.plazo.toLocalDate(), 'dd-MM-yyyy') : ''}"></td>
+                                <td th:text="${proyecto.fechaRec != null ? #temporals.format(proyecto.fechaRec.toLocalDate(), 'dd-MM-yyyy') : ''}"></td>
+                                <td th:text="${proyecto.demora}"></td>
+                                <td th:text="${proyecto.estado}"></td>
+                                <td th:text="${proyecto.comentarios}"></td>
+                                <td >
+                                    <a class="btn btn-primary btn-xs" th:href="@{/solicitudes/form/} + ${proyecto.id}" th:text="#{text.taller.editar}"></a>
+                                    <a class="btn btn-danger btn-xs"
+                                       th:href="@{/eliminarproy/} + ${proyecto.id}" th:text="#{text.taller.eliminar}"
+                                       onclick="return confirm('¿Desea eliminar la solicutud?')" ></a></td>
+                                <td th:text="${proyecto.solicitud}" style="display:none;"></td>
+                            </tr>                
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th style="text-align:right">Total:</th>
+                                <th style="text-align:left"></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th ></th>
+                                <th style="display:none;"></th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+          </div>
+
+            <!-- Datatable configuración -->
+
+            <script>
+
+                $(document).ready(function () {
+
+                    var table = $('#todotable').DataTable({
+                        "language": {
+                            searchPanes: {
+                                clearMessage: 'Borrar Filtros'
+                            },
+                            select: {
+                                rows: {
+                                    _: "%d Filas seleccionadas",
+                                    0: "Pulse una fila para seleccionarla",
+                                    1: "1 Fila Seleccionada"
+                                }
+                            },
+
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Buscar:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+
+                        lengthChange: false,
+                        scrollY: true,
+                        scrollX: true,
+                        scrollCollapse: false,
+                        paging: false,
+                        createdRow: function (row, data, dataIndex) {
+
+                            if (data[13] == "Recibido") {
+                                $(row).addClass('green');
+
+                            } else if (data[13] == "Pendiente de Validación") {
+                                $(row).addClass('yellow');
+                            }
+
+                            if (data[12] >= "1" && data[11] == 0 && data[14] == 0) {
+
+                                //Para crear alerta si la demora es mayor que 1. Ha expirado el plazo de entrega y que avise una sola vez por cada solicitud
+
+                                let dato1 = data[16]; //Se pasan a string los valores de las columnas para que la alerta no sea igual en  cada caso
+                                let dato2 = data[1];
+                                let dato3 = data[12];
+                                let dato4 = data[0];
+
+                                var alerted = localStorage.getItem(dato4) || '';
+                                if (alerted != 'yes') {
+                                    alert(dato1 + ' de ' + dato2 + ' ha expirado el plazo ' + dato3 + ' día/s');
+                                    localStorage.setItem(dato4, 'yes');
+
+                                }
+
+                                if (data[13] != "Recibido" && data[13] != "Pendiente de Validación" && data[13] != "Sin especificar") {
+                                    $(row).addClass('red');
+                                }
+                            }
+                        },
+                        dom: 'BPfrtip',
+
+                        searchPanes: {
+
+                            filterChanged: function (count) {
+                                $('.spToggle').text(this.i18n('searchPanes.collapse', {0: 'Filtros', _: 'Filtros Aplicados (%d)'}, count));
+                            },
+                            targets: [0],
+                            threshold: 1,
+                            cascadePanes: true,
+                            dtOpts: {
+                                dom: "tp",
+                                paging: false,
+                                pagingType: 'numbers',
+                                searching: true
+                            },
+
+                            columns: [13, 0, 1, 2],
+                            layout: 'columns-4',
+                            viewTotal: true,
+
+                        },
+                        buttons: [
+
+                            {
+                                text: 'Filtros',
+                                className: 'spToggle showPanes',
+                                action: function (e, dt, node, config) {
+                                    dt.searchPanes.container().find('.dtsp-searchPanes').slideToggle(200, function () {
+                                        $('.spToggle').toggleClass('showPanes', $(this).is(':visible'));
+                                    });
+                                },
+                            },
+
+                            {text: "Copiar",
+                                extend: 'copyHtml5',
+                                titleAttr: 'Copiar',
+                                footer: true,
+                                exportOptions: {
+                                    columns: [0, ':visible']
+                                }
+                            },
+                            {
+                                extend: 'excelHtml5',
+                                footer: true,
+                                exportOptions: {
+                                    columns: ':visible'
+                                },
+
+                            },
+                            {
+                                extend: 'pdfHtml5',
+                                orientation: 'landscape',
+                                pageSize: 'LEGAL',
+                                footer: true,
+                                exportOptions: {
+                                    columns: ':visible'
+
+                                }
+                            },
+                            {
+                                text: "Seleccionar Columnas",
+                                extend: 'colvis',
+                            },
+
+                            {
+                                text: "Restaurar Columnas",
+                                extend: 'colvisRestore',
+                            },
+                        ],
+
+                        //Total facturado - pie de tabla
+
+                        "footerCallback": function (row, data, start, end, display) {
+                            var api = this.api(), data;
+
+                            // Remove the formatting to get integer data for summation
+                            var intVal = function (i) {
+                                return typeof i === 'string' ?
+                                        i.replace(/[^\d.-]/g, '') * 1 :
+                                        typeof i === 'number' ?
+                                        i : 0;
+                            };
+
+                            // Total over all pages
+                            total = api
+                                    .column(6)
+                                    .data()
+                                    .reduce(function (a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0);
+
+                            // Total over this page
+                            pageTotal = api
+                                    .column(6, {page: 'current'})
+                                    .data()
+                                    .reduce(function (a, b) {
+                                        return intVal(a) + intVal(b);
+                                    }, 0);
+
+                            // Update footer
+                            $(api.column(6).footer()).html(
+                                    pageTotal + '€'
+                                    );
+                        },
+
+                    });
+
+                    table.searchPanes.container().find('.dtsp-searchPanes').css('display', 'none');
+                });
+
+
+            </script>  
+
+            <script>
+                window.addEventListener("beforeunload", function () {
+                    // Enviar solicitud AJAX al servidor para detenerlo
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/detener-servidor", false); // Cambia "/detener-servidor" por la URL adecuada para detener el servidor
+                    xhr.send();
+                });
+            </script>
+
+            <footer th:replace="layout/layout :: footer">
+
+            </footer>  
+        </main> 
+    </body>
+
+
+</html>
