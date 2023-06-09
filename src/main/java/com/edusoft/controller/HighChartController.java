@@ -12,48 +12,39 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.edusoft.entity.Proyecto;
 import com.edusoft.models.service.IProyectoService;
- 
+
 @RestController
 public class HighChartController {
- 
-	@Autowired
-	private IProyectoService proyectoService;
-	
+
+    @Autowired
+    private IProyectoService proyectoService;
+
     @GetMapping("/get-data")
-    public ResponseEntity <?> getPieChart() {
-    	List<Proyecto> dataList = proyectoService.nombreDeTaller();
-		/* List<Proyecto> precios = proyectoService.precios(); */
-    	
-		 Map<String, Double> graphData = new TreeMap<>();
-		for(Proyecto data : dataList) {
+    public ResponseEntity<?> getPieChart() {
+        List<Proyecto> dataList = proyectoService.nombreDeTaller();
 
-		
-			graphData.put(data.getNombreTaller(), data.getPrecio());
-			
-			}
-			
-		
+        Map<String, Double> graphData = new TreeMap<>();
+        for (Proyecto data : dataList) {
+
+            graphData.put(data.getNombreTaller(), data.getPrecio());
+
+        }
+
         return new ResponseEntity<>(graphData, HttpStatus.OK);
     }
-    
+
     @GetMapping("/get-data2")
-    public ResponseEntity <?> getPieChart2() {
-    	List<Proyecto> dataList = proyectoService.nombreDeProyecto();
-		/* List<Proyecto> precios = proyectoService.precios(); */
-    	
-		 Map<String, Double> graphData = new TreeMap<>();
-		for(Proyecto data : dataList) {
+    public ResponseEntity<?> getPieChart2() {
 
-		
-			graphData.put(data.getNombre(), data.getPrecio());
-			
-			}
-			
-		
+        List<Proyecto> dataList = proyectoService.nombreDeProyecto();
+
+        Map<String, Double> graphData = new TreeMap<>();
+        for (Proyecto data : dataList) {
+
+            graphData.put(data.getNombre(), data.getPrecio());
+
+        }
         return new ResponseEntity<>(graphData, HttpStatus.OK);
     }
-    
+
 }
-
-
-

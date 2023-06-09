@@ -26,8 +26,7 @@ import com.edusoft.models.service.IUsuariosService;
 @RequestMapping("/usuarios")
 public class UsuariosController {
 	
-	@Value("${spring.data.web.pageable.default-page-size}")
-	private int numero;
+
 	
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;

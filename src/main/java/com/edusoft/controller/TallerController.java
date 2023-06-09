@@ -110,5 +110,4 @@ public class TallerController {
 		return "redirect:/listar";
 
 	}
-
 }

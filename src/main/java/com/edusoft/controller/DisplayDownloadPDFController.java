@@ -43,16 +43,16 @@ public class DisplayDownloadPDFController{
          response.setContentType("application/pdf");
          //Si se quiere descargar archivo
          //response.setHeader("Content-Disposition", "attachment;filename=" + file.getName() +"/"+ proyecto.getOfertaPdf().toString());
-         BufferedInputStream inStrem = new BufferedInputStream(new FileInputStream(file + "/" + "Solicitudes/"+proyecto.getSolicitud()+"/" + proyecto.getOfertaPdf().toString()));
+         BufferedInputStream inStream = new BufferedInputStream(new FileInputStream(file + "/" + "Solicitudes/"+proyecto.getSolicitud()+"/" + proyecto.getOfertaPdf().toString()));
          BufferedOutputStream outStream = new BufferedOutputStream(response.getOutputStream());
          
          byte[] buffer = new byte[1024];
          int bytesRead = 0;
-         while ((bytesRead = inStrem.read(buffer)) != -1) {
+         while ((bytesRead = inStream.read(buffer)) != -1) {
            outStream.write(buffer, 0, bytesRead);
          }
          outStream.flush();
-         inStrem.close();
+         inStream.close();
     	
       }catch(IOException ex) {
           System.err.println("An IOException was caught!");
@@ -147,7 +147,7 @@ public class DisplayDownloadPDFController{
          
          //response.setHeader("Content-Disposition", "attachment;filename=" + file.getName() +"/"+ proyecto.getSolicitudPdf().toString());
          //Para subir pdf solicitudes (desactivado)
-         //BufferedInputStream inStrem = new BufferedInputStream(new FileInputStream(file + "/" + "Solicitudes/"+proyecto.getSolicitud()+"/" + proyecto.getSolicitudPdf().toString()));
+         //BufferedInputStream inStream = new BufferedInputStream(new FileInputStream(file + "/" + "Solicitudes/"+proyecto.getSolicitud()+"/" + proyecto.getSolicitudPdf().toString()));
 
          BufferedInputStream inStrem = new BufferedInputStream(new FileInputStream(file + "/" + "Solicitudes/"+proyecto.getSolicitud()+"/" + proyecto.getSolicitud()+".pdf"));
          BufferedOutputStream outStream = new BufferedOutputStream(response.getOutputStream());

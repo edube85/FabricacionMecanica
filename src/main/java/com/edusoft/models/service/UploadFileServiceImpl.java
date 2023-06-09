@@ -50,8 +50,6 @@ public class UploadFileServiceImpl implements IUploadFileService {
 		
 		fileName = fileName.substring(startIndex + 1);
 
-		//String uniqueFilename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-		//String uniqueFilename = UUID.randomUUID().toString() + "_" + fileName;
 		String uniqueFilename = fileName;
 		Path rootPath = getPath(uniqueFilename , carpeta);
 
@@ -80,7 +78,14 @@ public class UploadFileServiceImpl implements IUploadFileService {
 		return false;
 	}
 
-	//Guarda el archivo en la carpeta especificada
+	
+        
+        /**
+         * 
+         * @param filename
+         * @param carpeta Guarda el archivo en la carpeta especificada
+         * @return 
+         */
 	public Path getPath(String filename, String carpeta) {
 		
 		return Paths.get(UPLOADS_FOLDER + carpeta).resolve(filename).toAbsolutePath();

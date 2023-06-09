@@ -30,7 +30,7 @@ public class UsuariosServiceJpa implements IUsuariosService {
 
 	@Override
 	public List<Usuario> buscarTodos() {
-		// TODO Auto-generated method stub
+
 		return (List<Usuario>) usuariosRepo.findAll();
 	}
 

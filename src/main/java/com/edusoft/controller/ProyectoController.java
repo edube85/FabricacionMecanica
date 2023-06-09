@@ -2,8 +2,6 @@ package com.edusoft.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Locale;
 import java.util.Map;
 
@@ -30,7 +28,6 @@ import com.edusoft.models.service.IEstadoService;
 import com.edusoft.models.service.IProyectoService;
 import com.edusoft.models.service.ITallerService;
 import com.edusoft.models.service.IUploadFileService;
-import java.util.UUID;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
